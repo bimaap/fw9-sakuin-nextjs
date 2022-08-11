@@ -1,27 +1,27 @@
-// import axios from 'axios'
+// import Axios from 'axios'
+// import Cookies from 'js-cookie'
 
-// const axiosApiIntance = axios.create({
-//     baseURL: 'api base url'
+// const axiosApiIntances = Axios.create({
+//     baseURL: 'https://fazzpay.herokuapp.com/'
 // })
 
-// axiosApiIntance.interception.request.use(function(config){
+// axiosApiIntances.interceptors.request.use(function(config){
 //     config.headers = {
-//         Authorization: `Bearer ${cookie.get('token')}`
+//         Autorization: `Bearer ${Cookies.get('token')}`
 //     }
-//     return confiq
+//     return config
 // }, function (error){
-//     return error
+//     return Promise.reject(error)
 // })
 
-// axiosApiIntance.interception.reponse.use(function(response){
+// axiosApiIntances.interceptors.response.use(function(response){
 //     return response
 // }, function(error){
-//     if(error.response)
-//     if(error.response.status == 403){
-//         cookie.remove('token')
+//     if(error.response.status === 403){
+//         Cookies.remove('token')
 //         window.location.href = '/auth/login'
 //     }
 //     return error
 // })
 
-// export default axiosApiIntance
+// export default axiosApiIntances
