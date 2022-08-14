@@ -13,7 +13,23 @@ const nextConfig = {
         destination: '/auth/register',
         source: '/register'
       },
+      {
+        destination: '/dashboard/home',
+        source: '/home'
+      },
+      {
+        destination: '/dashboard/transactionHistory',
+        source: '/transactionHistory'
+      },
+      {
+        destination: '/dashboard/searchReceiver',
+        source: '/searchReceiver'
+      },
     ]
+  },
+
+  images: {
+    domains: ['res.cloudinary.com']
   }
 }
 

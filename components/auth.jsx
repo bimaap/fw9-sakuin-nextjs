@@ -13,7 +13,7 @@ export default function Login(props){
       <section className="d-flex nv-h-100">
         <div className="nv-bc-primary nv-w-50 d-flex flex-column align-items-center justify-content-center">
           <div className="nv-auth-image-phone">
-            <Image src={Phone} />
+            <Image src={Phone} alt='phone' />
           </div>
           <div className="d-flex flex-column gap-3">
             <span className="nv-c-secondary nv-f-h4 nv-weight-800">App that Covering Banking Needs.</span>

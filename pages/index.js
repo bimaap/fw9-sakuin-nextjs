@@ -26,7 +26,7 @@ export default function LandingPage(){
           <span className="nv-logo">sakuin</span>
           <div className="d-flex align-items-center gap-3">
             <Link href={'/login'}><button className="nv-c-secondary nv-btn">Login</button></Link>
-            <button className="nv-bc-secondary nv-btn nv-c-black">Sign Up</button>
+            <Link href={'/register'}><button className="nv-bc-secondary nv-btn nv-c-black">Sign Up</button></Link>
           </div>
         </div>
       </header>
@@ -34,7 +34,7 @@ export default function LandingPage(){
       <section className="d-flex flex-column nv-bc-primary nv-h-75 align-items-center justify-content-center gap-5">
         <span className="nv-weight-700 nv-f-h1 nv-c-secondary text-center">Awesome App<br/>For Saving Time.</span>
         <span className="nv-weight-400 nv-f-h7 nv-c-secondary text-center">We bring you a mobile app for banking problems that<br/>oftenly wasting much of your times.</span>
-        <button className="nv-btn nv-c-black nv-bc-secondary ">Try It Free</button>
+        <Link href={'/register'}><button className="nv-btn nv-c-black nv-bc-secondary ">Try It Free</button></Link>
       </section>
 
       <section className="nv-control-height-fit nv-h-100 nv-bc-white d-flex align-items-center justify-content-center flex-column gap-5">
@@ -60,12 +60,12 @@ export default function LandingPage(){
       </section>
 
       <section className="nv-partners-landing-page nv-h-25 d-flex align-items-center justify-content-center gap-3 nv-bc-primary">
-        <Image src={airbnb} />
-        <Image src={canon} />
-        <Image src={dell} />
-        <Image src={dropbox} />
-        <Image src={hm} />
-        <Image src={microsoft} />
+        <Image src={airbnb} alt='partner' />
+        <Image src={canon} alt='partner' />
+        <Image src={dell} alt='partner' />
+        <Image src={dropbox} alt='partner' />
+        <Image src={hm} alt='partner' />
+        <Image src={microsoft} alt='partner' />
       </section>
 
       <section className="nv-h-75 d-flex flex-column align-items-center justify-content-center gap-5">
@@ -76,7 +76,7 @@ export default function LandingPage(){
 
       <section className="nv-bc-primary nv-h-100 d-flex align-items-center gap-4 justify-content-center">
         <div className="nv-image-phone">
-          <Image src={phone} />
+          <Image src={phone} alt='phone' />
         </div>
         <div className="nv-control-width-fit d-flex justify-content-center flex-column gap-4">
           <span className="nv-f-h2 nv-weight-700 nv-c-grey">All The <span className="nv-c-secondary">Great</span><br/>FazzPay Features.</span>
@@ -109,17 +109,17 @@ export default function LandingPage(){
         <span className="text-center nv-f-h8 nv-weight-400">We have some great features from the application and it’s totally free<br/>to use by all users around the world.</span>
         <div className="nv-control-card-landing-page d-flex gap-3">
           <div className="nv-card nv-card-landing-page nv-bc-grey d-flex align-items-center justify-content-center flex-column gap-3">
-            <Image src={user1} />
+            <Image src={user1} alt='user' />
             <span className="nv-f-h6 nv-weight-700 nv-c-primary">Sherina Chaw</span>
             <span className="text-center nv-f-h8 nv-weight-400 nv-c-black">“I use this app since 2 years ago and<br/>this is the best app that I’ve ever use<br/>in my entire life”</span>
           </div>
           <div className="nv-card nv-card-landing-page nv-bc-grey d-flex align-items-center justify-content-center flex-column gap-3">
-            <Image src={user2} />
+            <Image src={user2} alt='user' />
             <span className="nv-f-h6 nv-weight-700 nv-c-primary">Jessica Mera</span>
             <span className="text-center nv-f-h8 nv-weight-400 nv-c-black">“I use Zwallet to manage all financial<br/>needs. It’s super easy to use and it’s<br/>100% free app”</span>
           </div>
           <div className="nv-card nv-card-landing-page nv-bc-grey d-flex align-items-center justify-content-center flex-column gap-3">
-            <Image src={user3} />
+            <Image src={user3} alt='user' />
             <span className="nv-f-h6 nv-weight-700 nv-c-primary">Robert Chandler</span>
             <span className="text-center nv-f-h8 nv-weight-400 nv-c-black">“Since I’m using this app, I’m not<br/>going to move to another similar app.<br/>Thank you Zwallet!”</span>
           </div>
