@@ -9,7 +9,7 @@ import Link from "next/link";
 import DashboardLayout from '../../components/dashboard'
 
 import { useSelector, useDispatch } from "react-redux";
-import { getUserAuth } from "../../redux/async/getUser";
+import { getProfileAuth } from "../../redux/async/getProfile";
 import { getTransactionsAuth } from "../../redux/async/getTransactions";
 
 export default function Home(){
@@ -22,11 +22,11 @@ export default function Home(){
         if(!token){
             router.push('/login')
         }else{
-            dispatch(getUserAuth({token, id}))
+            dispatch(getProfileAuth({token, id}))
             dispatch(getTransactionsAuth({token, page:'1', limit:'5', filter:'MONTH'}))
         }
     }, [])
-    const dataUser = useSelector((state) => state.getUser.data);
+    const dataProfile = useSelector((state) => state.getProfile.data);
     const dataTransactions = useSelector((state) => state.getTransactions.data);
 
     return(
@@ -36,8 +36,8 @@ export default function Home(){
                     <div className="nv-card d-flex justify-content-between nv-bc-primary nv-h-25 p-4">
                         <div className="d-flex flex-column justify-content-between">
                             <span className="nv-c-grey nv-f-h8">Balance</span>
-                            <span className="nv-c-secondary nv-f-h2 nv-weight-700">Rp{dataUser.balance}</span>
-                            <span className="nv-c-grey nv-f-h8">{dataUser.noTelp? dataUser.noTelp:'-'}</span>
+                            <span className="nv-c-secondary nv-f-h2 nv-weight-700">Rp{dataProfile.balance}</span>
+                            <span className="nv-c-grey nv-f-h8">{dataProfile.noTelp? dataProfile.noTelp:'-'}</span>
                         </div>
                         <div className="d-flex flex-column justify-content-center gap-4">
                             <button className="nv-btn nv-bc-secondary d-flex gap-1 align-items-center justify-content-center">
@@ -74,7 +74,7 @@ export default function Home(){
                                     </Link>
                                 </div>
                                 <div className="d-flex flex-column gap-3">
-                                    {dataTransactions.data?.length? dataTransactions.data.map(e=>{
+                                    {dataTransactions?.data?.length? dataTransactions.data.map(e=>{
                                         return(
                                             <div className="d-flex justify-content-between align-items-center nv-card nv-bc-white p-2 rounded">
                                                 <div className="d-flex gap-2">

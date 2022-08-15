@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { getUserAuth } from '../async/getUser'
 
 const initialState = {
-  data: [],
+  data: []
 }
 
 export const getUser = createSlice({
@@ -12,9 +12,8 @@ export const getUser = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getUserAuth.fulfilled, (state, action) => {
-      state.data = []
       state.data = action.payload
-    })
+    });
   },
 })
 

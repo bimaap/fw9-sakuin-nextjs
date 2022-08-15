@@ -12,7 +12,6 @@ export const getTransactions = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTransactionsAuth.fulfilled, (state, action) => {
-      state.data = []
       state.data = action.payload
     })
   },

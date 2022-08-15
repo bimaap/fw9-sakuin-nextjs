@@ -8,11 +8,13 @@ import Cookies from "js-cookie";
 import { AiOutlineMail, AiOutlineLock, AiOutlineInfoCircle, AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import {useRouter} from "next/router";
 import AuthLayout from "../../components/auth"
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Login(){
   const [pass, setPass] = React.useState(false)
   const [error, setError] = React.useState(null);
   const router = useRouter()
+  const dispatch = useDispatch()
   
   const loginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email address format').required('Required'),
@@ -27,9 +29,13 @@ export default function Login(){
         setError(null)
         Cookies.set("token", result.data.data.token)
         Cookies.set("id", result.data.data.id)
-        router.push('/home')
-      } catch (error) {
-        setError(error.response.data.msg)
+        if(result.data.data.pin){
+          router.push('/home')
+        }else{
+          router.push('/auth/setPin')
+        }
+      } catch (error) { 
+        setError(error.response?.data.msg)
       }
     }else{
       setError('Check login data again')

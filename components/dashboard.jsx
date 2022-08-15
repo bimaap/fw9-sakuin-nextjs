@@ -13,13 +13,18 @@ import { AiOutlineBell, AiOutlineAppstore, AiOutlineArrowUp, AiOutlinePlus, AiOu
 import { BiMoney } from "react-icons/bi";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getUserAuth } from "../redux/async/getUser";
+import { getProfileAuth } from "../redux/async/getProfile";
 
 function MyVerticallyCenteredModal(props) {
     const token = Cookies.get('token')
     const topupSchema = Yup.object().shape({
         amount: Yup.number().min(1000, 'Minimal topup 1000').max(5000000, 'Maximal topup 5000000').required('Required')
     })
+
+    const openInNewTab = (url) => {
+        const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
+        if (newWindow) newWindow.opener = null
+    }
 
     const handleClickTopup = async (props) => {
         const valueError = Object.keys(props.errors).length
@@ -34,7 +39,8 @@ function MyVerticallyCenteredModal(props) {
 
             try {
                 const result = await authAxios.post("https://fazzpay.herokuapp.com/transaction/top-up", props.values)
-                window.location.href = `${result.data.data.redirectUrl}`
+                openInNewTab(`${result.data.data.redirectUrl}`)
+                window.location.href = `/home`
             } catch (error) {
                 console.log(error);
             }
@@ -90,15 +96,35 @@ export default function Home(props){
     const token = Cookies.get('token')
     const id = Cookies.get('id')
     const dispatch = useDispatch()
-    const dataUser = useSelector((state) => state.getUser.data);
-
+    
+    
     React.useEffect(()=>{
         if(!token){
             router.push('/login')
         }else{
-            dispatch(getUserAuth({token, id}))
+            dispatch(getProfileAuth({token, id}))
         }
     }, [])
+    const dataProfile = useSelector((state) => state.getProfile.data);
+
+    const onLogout = async () => {
+        const authAxios = Axios.create({
+            baseURL: 'https://fazzpay.herokuapp.com/',
+            headers : {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        try {
+            const result = await authAxios.post("https://fazzpay.herokuapp.com/auth/logout")
+            Cookies.remove('token')
+            Cookies.remove('id')
+            Cookies.remove('receiverId')
+            router.push('/')
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
         <>
@@ -106,10 +132,10 @@ export default function Home(props){
                 <div className="d-flex justify-content-between nv-w-75">
                     <span className="nv-logo">sakuin</span>
                     <div className="d-flex align-items-center gap-3">
-                        {dataUser.image? <Image className="rounded-3" src={`${dataUser.image}`} width={40} height={40} alt='user' />:<Image className="rounded-3" src={default_image} width={40} height={40} alt='user' />}
+                        {dataProfile.image? <Image className="rounded-3" src={`https://res.cloudinary.com/dd1uwz8eu/image/upload/v1653276449/${dataProfile.image}`} width={40} height={40} alt='user' />:<Image className="rounded-3" src={default_image} width={40} height={40} alt='user' />}
                         <div className="d-flex flex-column">
-                            <span className="nv-c-grey nv-f-h8 nv-weight-700">{`${dataUser.firstName} ${dataUser.lastName}`}</span>
-                            <span className="nv-c-grey nv-f-h10">{dataUser.noTelp? dataUser.noTelp:'-'}</span>    
+                            <span className="nv-c-grey nv-f-h8 nv-weight-700">{`${dataProfile.firstName} ${dataProfile.lastName}`}</span>
+                            <span className="nv-c-grey nv-f-h10">{dataProfile.noTelp? dataProfile.noTelp:'-'}</span>    
                         </div>
                         <AiOutlineBell className="nv-f-h5 nv-c-grey" />
                     </div>
@@ -135,13 +161,15 @@ export default function Home(props){
                                 <AiOutlinePlus className="nv-f-h6 nv-c-primary" />
                                 <span className="nv-f-h9 nv-weight-700 nv-c-primary" onClick={() => setModalShow(true)}>Top Up</span>
                             </div>
-                            <div className="d-flex align-items-center gap-2">
-                                <AiOutlineUser className="nv-f-h6 nv-c-primary" />
-                                <span className="nv-f-h9 nv-weight-700 nv-c-primary">Profile</span>
-                            </div>
+                            <Link href={'/dashboard/profile'}>
+                                <div className="d-flex align-items-center gap-2">
+                                    <AiOutlineUser className="nv-f-h6 nv-c-primary" />
+                                    <span className="nv-f-h9 nv-weight-700 nv-c-primary">Profile</span>
+                                </div>
+                            </Link>
                             <div className="d-flex align-items-center gap-2">
                                 <AiOutlineLogout className="nv-f-h6 nv-c-primary" />
-                                <span className="nv-f-h9 nv-weight-700 nv-c-primary">Logout</span>
+                                <span className="nv-f-h9 nv-weight-700 nv-c-primary" onClick={() => onLogout()}>Logout</span>
                             </div>
                         </div>
                     </div>
